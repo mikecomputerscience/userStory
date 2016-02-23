@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html ng-app="MyApp">
+
+  <head>
+    <base href="/">
+    <title>User Story</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-route.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    
+    <!--app.use(express.static(__dirname + '/public'));-->
+    <!--Because of the above code in server.js, all folders start from /public, so I need to use app/app.js instead of ../app.js-->
+    <!--Services-->
+    <script src="app/services/authService.js"></script>
+    <script src="app/services/userService.js"></script>
+    <script src="app/services/storyService.js"></script>
+
+    <!--Controllers-->
+    <script src="app/controllers/mainCtrl.js"></script>
+    <script src="app/controllers/userCtrl.js"></script>
+    <script src="app/controllers/storyCtrl.js"></script>
+    
+    <!--Directives-->
+    <script src="app/directives/reverse.js"></script>
+
+    <script src="app/app.routes.js"></script>
+    <script src="app/app.js"></script>
+  </head>
+
+  <body ng-controller="MainController as main">
+    <header>
+      <div class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <a href="/" class="navbar-brand"><span class="glyphicon glyphicon-book"></span>User Story</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li><a href="/users"></a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li ng-if="!main.loggedIn"><a href="/login">Login</a></li>
+            <li ng-if="!main.loggedIn"><a href="/signup">Signup</a></li>
+            <li ng-if="main.loggedIn"><a href="#">Hello {{ main.user.name }}</a></li>
+            <li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <main class="container">
+      <div ng-view></div>
+    </main>
+  </body>
+</html>
